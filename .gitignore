@@ -1,4 +1,4 @@
 .vscode
-build
-run/lib
+build/*
+run/lib/*
 run/bin/*.exe
