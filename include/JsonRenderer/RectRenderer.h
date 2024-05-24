@@ -1,0 +1,27 @@
+#ifndef RECTRENDERER_H
+#define RECTRENDERER_H
+
+#include "JsonRenderer.h"
+#include <vector>
+
+class RectRenderer :public JsonRenderer
+{
+private:
+    JsonIcon* m_icon;
+    std::vector<std::string> m_prefix;
+    size_t m_length;
+public:
+    RectRenderer(JsonIcon* icon = nullptr);
+    virtual void renderLeaf(JsonLeaf* leaf, int level) override;
+    virtual void renderContainer(JsonContainer* container, int level) override;
+    void shrinkPrefix(int num);
+    std::string getPrefix();
+    ~RectRenderer();
+private:
+    size_t count_u8(const std::string& str);
+};
+
+
+
+
+#endif
