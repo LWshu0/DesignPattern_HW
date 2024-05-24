@@ -12,8 +12,8 @@ int main()
     JsonLoader loader;
     loader.load("test.json");
 
-    TreeRendererFactory tree_factory("icon.config");
-    RectRendererFactory rect_factory("icon_ext.config");
+    TreeRendererFactory tree_factory;
+    RectRendererFactory rect_factory;
     OriginRendererFactory origin_factory;
 
     // loader.output("test_output.json");

@@ -5,7 +5,7 @@ RectRendererFactory::RectRendererFactory(const std::string& icon_file) :Renderer
 
 JsonRenderer* RectRendererFactory::create()
 {
-    return new RectRenderer(&m_icon);
+    return new RectRenderer(m_icon);
 }
 
 RectRendererFactory::~RectRendererFactory()

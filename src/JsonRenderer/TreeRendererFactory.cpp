@@ -4,7 +4,7 @@ TreeRendererFactory::TreeRendererFactory(const std::string& icon_file) :Renderer
 
 JsonRenderer* TreeRendererFactory::create()
 {
-    return new TreeRenderer(&m_icon);
+    return new TreeRenderer(m_icon);
 }
 
 TreeRendererFactory::~TreeRendererFactory()

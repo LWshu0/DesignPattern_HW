@@ -6,7 +6,7 @@
 
 class TreeRendererFactory :public RendererFactory {
 public:
-    TreeRendererFactory(const std::string& icon_file);
+    TreeRendererFactory(const std::string& icon_file = "");
     virtual JsonRenderer* create() override;
     virtual ~TreeRendererFactory();
 };

@@ -6,7 +6,7 @@
 
 class RectRendererFactory :public RendererFactory {
 public:
-    RectRendererFactory(const std::string& icon_file);
+    RectRendererFactory(const std::string& icon_file = "");
     virtual JsonRenderer* create() override;
     virtual ~RectRendererFactory();
 };
