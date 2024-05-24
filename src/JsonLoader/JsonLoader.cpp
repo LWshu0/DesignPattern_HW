@@ -29,10 +29,13 @@ int JsonLoader::load(const std::string& path)
     return 0;
 }
 
-std::string JsonLoader::draw(JsonRenderer* renderer)
+std::string JsonLoader::draw(RendererFactory* factory)
 {
+    JsonRenderer* renderer = factory->create();
     renderer->renderContainer(m_root.get(), 0);
-    return renderer->getResult();
+    std::string result = renderer->getResult();
+    delete renderer;
+    return result;
 }
 
 void JsonLoader::clear()

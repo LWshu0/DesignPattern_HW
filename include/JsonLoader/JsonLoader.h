@@ -3,6 +3,7 @@
 
 #include "JsonNode.h"
 #include "JsonRenderer/JsonRenderer.h"
+#include "JsonRenderer/RendererFactory.h"
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -27,7 +28,7 @@ private:
 public:
     JsonLoader();
     int load(const std::string& path);
-    std::string draw(JsonRenderer* renderer);
+    std::string draw(RendererFactory* factory);
     void clear();
     void output(const std::string& path);
 
