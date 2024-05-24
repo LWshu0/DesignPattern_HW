@@ -23,7 +23,6 @@ void JsonContainer::clear()
 
 void JsonContainer::draw(JsonRenderer* renderer, int level)
 {
-    // 渲染容器名称
     renderer->renderContainer(this, level);
 }
 
@@ -48,6 +47,7 @@ void JsonLeaf::draw(JsonRenderer* renderer, int level)
 }
 void JsonLeaf::clear()
 {
+    m_value = "null";
     return;
 }
 
