@@ -1,4 +1,6 @@
 .vscode
 build/*
+!build/.gitkeep
 run/lib/*
+!run/lib/.gitkeep
 run/bin/*.exe
