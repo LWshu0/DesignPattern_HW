@@ -4,11 +4,11 @@
 #include "JsonLoader/JsonLoader.h"
 #include "JsonRenderer/TreeRenderer.h"
 #include "JsonRenderer/RectRenderer.h"
-#include "JsonIcon/PokerIcon.h"
+#include "JsonIcon/JsonIcon.h"
 int main()
 {
     JsonLoader loader;
-    PokerIcon icon;
+    JsonIcon icon("icon.config");
     TreeRenderer tree_renderer(&icon);
     RectRenderer rect_renderer(&icon);
     loader.load("test.json");

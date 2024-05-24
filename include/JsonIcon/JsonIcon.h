@@ -2,17 +2,20 @@
 #define JSONICON_H
 
 #include <string>
-
+#include <fstream>
 /**
  *@brief Json 图标的抽象接口
- * 
+ *
  */
 class JsonIcon {
+private:
+    std::string m_leafIcon;
+    std::string m_containerIcon;
 public:
-    JsonIcon() = default;
-    virtual std::string getLeafIcon() = 0;
-    virtual std::string getContainerIcon() = 0;
-    virtual ~JsonIcon() {}
+    JsonIcon(const std::string& file_path);
+    std::string getLeafIcon();
+    std::string getContainerIcon();
+    ~JsonIcon();
 };
 
 #endif
