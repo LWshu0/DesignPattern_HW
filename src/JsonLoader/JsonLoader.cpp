@@ -5,6 +5,7 @@ JsonLoader::JsonLoader() :m_root(nullptr)
 
 int JsonLoader::load(const std::string& path)
 {
+    clear();
     // read
     std::ifstream file(path);
     if (!file.is_open()) return -1;
@@ -31,6 +32,7 @@ int JsonLoader::load(const std::string& path)
 
 std::string JsonLoader::draw(RendererFactory* factory)
 {
+    if (factory == nullptr || m_root == nullptr) return "";
     JsonRenderer* renderer = factory->create();
     renderer->renderContainer(m_root.get(), 0);
     std::string result = renderer->getResult();

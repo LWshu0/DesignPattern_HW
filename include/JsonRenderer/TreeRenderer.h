@@ -12,11 +12,10 @@ public:
     TreeRenderer(JsonIcon* icon = nullptr);
     virtual void renderLeaf(JsonLeaf* leaf, int level) override;
     virtual void renderContainer(JsonContainer* container, int level) override;
-
+    virtual ~TreeRenderer();
+private:
     void shrinkPrefix(int num);
     std::string getPrefix();
-
-    virtual ~TreeRenderer();
 };
 
 #endif

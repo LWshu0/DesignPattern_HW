@@ -14,10 +14,10 @@ public:
     RectRenderer(JsonIcon* icon = nullptr);
     virtual void renderLeaf(JsonLeaf* leaf, int level) override;
     virtual void renderContainer(JsonContainer* container, int level) override;
-    void shrinkPrefix(int num);
-    std::string getPrefix();
     virtual ~RectRenderer();
 private:
+    void shrinkPrefix(int num);
+    std::string getPrefix();
     size_t count_u8(const std::string& str);
 };
 

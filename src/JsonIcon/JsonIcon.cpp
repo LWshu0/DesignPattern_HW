@@ -13,6 +13,10 @@ JsonIcon::JsonIcon(const std::string& file_path)
     file.close();
 }
 
+JsonIcon::JsonIcon(const std::string& leaf_icon, const std::string& container_icon) :
+    m_leafIcon(leaf_icon), m_containerIcon(container_icon)
+{}
+
 std::string JsonIcon::getLeafIcon()
 {
     return m_leafIcon;
@@ -25,5 +29,5 @@ std::string JsonIcon::getContainerIcon()
 
 JsonIcon::~JsonIcon()
 {
-    
+
 }
