@@ -16,13 +16,24 @@ int main()
     RectRendererFactory rect_factory;
     OriginRendererFactory origin_factory;
 
-    // loader.output("test_output.json");
     std::string result = loader.draw(&tree_factory);
-    std::cout << result;
+    std::cout << result << std::endl;
 
     result = loader.draw(&rect_factory);
-    std::cout << result;
+    std::cout << result << std::endl;
 
     result = loader.draw(&origin_factory);
-    std::cout << result;
+    std::cout << result << std::endl;
+
+    loader.load("test2.json");
+
+    result = loader.draw(&tree_factory);
+    std::cout << result << std::endl;
+
+    result = loader.draw(&rect_factory);
+    std::cout << result << std::endl;
+
+    result = loader.draw(&origin_factory);
+    std::cout << result << std::endl;
+
 }
