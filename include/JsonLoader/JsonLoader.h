@@ -30,8 +30,6 @@ public:
     int load(const std::string& path);
     std::string draw(RendererFactory* factory);
     void clear();
-    void output(const std::string& path);
-
     ~JsonLoader();
 
 private:

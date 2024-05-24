@@ -34,7 +34,6 @@ public:
     virtual void draw(JsonRenderer* renderer, int level) = 0;
 
     virtual void clear() = 0;
-    virtual void output(std::ofstream& os, int level) = 0;
     virtual ~JsonNode() {}
 };
 
@@ -61,7 +60,6 @@ public:
     
     virtual void draw(JsonRenderer* renderer, int level) override;
     virtual void clear() override;
-    virtual void output(std::ofstream& os, int level) override;
     virtual ~JsonContainer();
 };
 
@@ -78,7 +76,6 @@ public:
     std::string getValue() { return m_value; }
     virtual  void draw(JsonRenderer* renderer, int level) override;
     virtual void clear() override;
-    virtual void output(std::ofstream& os, int level) override;
     virtual ~JsonLeaf();
 };
 

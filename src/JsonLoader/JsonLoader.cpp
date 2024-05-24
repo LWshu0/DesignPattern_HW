@@ -48,17 +48,6 @@ void JsonLoader::clear()
     m_root = nullptr;
 }
 
-void JsonLoader::output(const std::string& path)
-{
-    std::ofstream file(path);
-    if (!file.is_open())
-    {
-        std::cout << "can't open " << path << std::endl;
-        return;
-    }
-    m_root->output(file, 0);
-}
-
 JsonLoader::~JsonLoader()
 {}
 
