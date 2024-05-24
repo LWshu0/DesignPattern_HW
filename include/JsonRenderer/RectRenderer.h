@@ -16,7 +16,7 @@ public:
     virtual void renderContainer(JsonContainer* container, int level) override;
     void shrinkPrefix(int num);
     std::string getPrefix();
-    ~RectRenderer();
+    virtual ~RectRenderer();
 private:
     size_t count_u8(const std::string& str);
 };

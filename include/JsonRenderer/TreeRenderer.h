@@ -16,7 +16,7 @@ public:
     void shrinkPrefix(int num);
     std::string getPrefix();
 
-    ~TreeRenderer();
+    virtual ~TreeRenderer();
 };
 
 #endif
