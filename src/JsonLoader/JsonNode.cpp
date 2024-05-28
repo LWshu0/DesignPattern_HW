@@ -132,7 +132,7 @@ float JsonLeaf::getFloat()
 bool JsonLeaf::getBool()
 {
     std::string v = m_value;
-    for (auto& ch : v) std::tolower(ch);
+    for (auto& ch : v) ch = std::tolower(ch);
     if ("true" == v) return true;
     else if ("false" == v) return false;
     else

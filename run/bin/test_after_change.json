@@ -6,7 +6,7 @@
         }
     },
     "apples": {
-        "gala": "new value",
+        "gala": "False",
         "pink lady": null
     }
 }
