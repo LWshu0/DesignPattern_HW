@@ -24,7 +24,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RUN_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${RUN_DIR}/bin)
 # 静态库输出位置
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${RUN_DIR}/lib)
-
+#
+set(CMAKE_INSTALL_PREFIX ${PROJECT_DIR}/install)
 # 指明所有头文件路径
 include_directories(${INCLUDE_DIR})
 # 链接库文件

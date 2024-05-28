@@ -13,3 +13,7 @@ add_executable(Funny_Json_Explorer Funny_Json_Explorer.cpp)
 
 target_link_libraries(Funny_Json_Explorer PUBLIC jsonloader)
 
+install(TARGETS jsonloader
+        ARCHIVE DESTINATION lib)
+install(DIRECTORY ${PROJECT_DIR}/include/
+        DESTINATION include)
