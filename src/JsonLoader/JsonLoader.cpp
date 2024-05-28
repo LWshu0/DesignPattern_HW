@@ -1,5 +1,5 @@
 #include "JsonLoader/JsonLoader.h"
-
+#include "JsonRenderer/OriginRendererFactory.h"
 JsonLoader::JsonLoader() :m_root(nullptr)
 {}
 
@@ -27,6 +27,16 @@ int JsonLoader::load(const std::string& path)
         m_root = nullptr;
         std::cerr << e.what() << '\n';
     }
+    return 0;
+}
+
+int JsonLoader::output(const std::string& path)
+{
+    std::ofstream file(path);
+    if (!file.is_open()) return -1;
+    OriginRendererFactory origin_renderer;
+    std::string result = this->draw(&origin_renderer);
+    file << result;
     return 0;
 }
 
@@ -82,7 +92,8 @@ std::string JsonLoader::getIdentifier(std::string& input_file, size_t& now_pos)
         }
         std::string identifier = input_file.substr(now_pos, end_pos - now_pos);
         now_pos = end_pos;
-        return identifier;
+        if (identifier == "null") return "";
+        else return identifier;
     }
 }
 

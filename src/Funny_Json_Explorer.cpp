@@ -42,4 +42,15 @@ int main()
     result = loader.draw(&origin_factory);
     std::cout << result << std::endl;
 
+    std::cout << " 访问/修改/导出方式测试 " << std::endl;
+    loader.load("test.json");
+    // should be "cheap & juicy!"
+    std::cout << "修改前: " << loader.root()["oranges"]["mandarin"]["tangerine"].getValue() << std::endl;
+    // 修改
+    loader.root()["oranges"]["mandarin"]["tangerine"].setValue("new cheap & juicy");
+    loader.root()["apples"]["gala"].setValue("new value");
+    // 修改后
+    std::cout << "修改后: " << loader.root()["oranges"]["mandarin"]["tangerine"].getValue() << std::endl;
+    // 导出
+    loader.output("test_after_change.json");
 }

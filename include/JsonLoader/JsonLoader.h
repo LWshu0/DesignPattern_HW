@@ -37,21 +37,23 @@ public:
     JsonLoader();
     /**
      *@brief 读入并解析一个 json 文件, 如果解析出现问题, 抛出异常
-     * 
+     *
      * @param path json 文件的路径
      * @return int 0 代表成功, -1 代表失败
      */
     int load(const std::string& path);
+    int output(const std::string& path);
     /**
      *@brief 渲染 json 文件到字符串
-     * 
+     *
      * @param factory 渲染器的工厂
      * @return std::string 渲染得到的字符串
      */
     std::string draw(RendererFactory* factory);
+    inline JsonNode& root() { return *m_root; }
     /**
      *@brief 清空载入器中的 json 文件内容
-     * 
+     *
      */
     void clear();
     ~JsonLoader();
@@ -59,7 +61,7 @@ public:
 private:
     /**
      *@brief 从 now_pos 开始跳过读入文件中遇到的空白字符, 修改 now_pos 到第一个非空白字符处
-     * 
+     *
      * @param input_file 读入的文件内容
      * @param now_pos 目前解析到的字符位置
      * @return true 如果文件到达了结尾

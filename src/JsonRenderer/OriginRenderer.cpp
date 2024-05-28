@@ -9,9 +9,9 @@ void OriginRenderer::renderLeaf(JsonLeaf* leaf, int level)
 {
     std::string spaces(level * 4, ' ');
     m_outputBuffer.back() += (spaces + '\"' + leaf->getName() + "\": ");
-    if (leaf->getValue() == "null")
+    if (leaf->empty())
     {
-        m_outputBuffer.back() += leaf->getValue();
+        m_outputBuffer.back() += "null";
     }
     else
     {
@@ -31,7 +31,7 @@ void OriginRenderer::renderContainer(JsonContainer* container, int level)
     m_outputBuffer.push_back("");
     for (int i = 0;i < container->size();i++)
     {
-        container->at(i)->draw(this, level + 1);
+        container->at(i).draw(this, level + 1);
         if (i != container->size() - 1) m_outputBuffer.back() += ',';
         m_outputBuffer.push_back("");
     }

@@ -11,7 +11,7 @@ void TreeRenderer::renderLeaf(JsonLeaf* leaf, int level)
 {
     if (m_icon != nullptr) m_outputBuffer.back() += (m_icon->getLeafIcon() + " ");
     m_outputBuffer.back() += leaf->getName();
-    if (leaf->getValue() != "null") m_outputBuffer.back() += (": " + leaf->getValue());
+    if (!leaf->empty()) m_outputBuffer.back() += (": " + leaf->getValue());
     m_outputBuffer.push_back("");
 }
 
@@ -53,8 +53,7 @@ void TreeRenderer::renderContainer(JsonContainer* container, int level)
         }
         if (!m_outputBuffer.empty()) m_outputBuffer.back() += getPrefix();
         else m_outputBuffer.push_back(getPrefix());
-        auto child = container->at(i);
-        child->draw(this, level + 1);
+        container->at(i).draw(this, level + 1);
     }
 }
 void TreeRenderer::shrinkPrefix(int num)

@@ -16,7 +16,7 @@ void RectRenderer::renderLeaf(JsonLeaf* leaf, int level)
     }
     m_outputBuffer.back() += leaf->getName();
     ll += leaf->getName().length();
-    if (leaf->getValue() != "null")
+    if (!leaf->empty())
     {
         m_outputBuffer.back() += (": " + leaf->getValue());
         ll += 2 + leaf->getValue().length();
@@ -78,8 +78,7 @@ void RectRenderer::renderContainer(JsonContainer* container, int level)
 
         if (!m_outputBuffer.empty()) m_outputBuffer.back() += getPrefix();
         else m_outputBuffer.push_back(getPrefix());
-        auto child = container->at(i);
-        child->draw(this, level + 1);
+        container->at(i).draw(this, level + 1);
     }
     if (level == 0)
     {
