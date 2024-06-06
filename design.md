@@ -217,7 +217,7 @@ std::string JsonLoader::draw(RendererFactory* factory)
 }
 ```
 
-在主函数中, 定义多种工厂, 然后分别按照不同的风格渲染输出结果:
+定义多种工厂, 然后分别按照不同的风格渲染输出结果:
 
 ```c++
 TreeRendererFactory tree_factory;
@@ -232,4 +232,37 @@ std::cout << result << std::endl;
 
 result = loader.draw(&origin_factory);
 std::cout << result << std::endl;
+```
+
+###### 建造者模式
+
+类 FJE 中使用 builder 模式封装一个完成的 json 载入器, 渲染器和图标族.
+
+```c++
+class FJE
+{
+private:
+    JsonIcon* m_icon;
+    RendererFactory* m_factory;
+    JsonLoader* m_loader;
+public:
+    FJE();
+    void buildIcon(const std::string& icon_path);
+    void buildRender(RendererFactory* factory);
+    void buildLoader(const std::string& json_path);
+    void renderJson();
+    ~FJE();
+};
+
+```
+
+分别调用 build 函数来完成一个 FJE 的构造, 其中 loader 和 renderer 是必须的. build 完成后, 可以调用 renderJson 即可完成 Json 文件的载入与渲染. 在主函数中的调用示例如下:
+
+```c++
+FJE fje;
+fje.buildIcon(icon_path);
+fje.buildRender(new TreeRendererFactory);
+fje.buildLoader(json_path);
+
+fje.renderJson();
 ```
