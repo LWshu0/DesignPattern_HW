@@ -1,11 +1,12 @@
 #include "JsonRenderer/RectRenderer.h"
 #include "JsonIcon/JsonIcon.h"
 #include "JsonLoader/JsonNode.h"
+#include "JsonLoader/JsonIterator.h"
 
 RectRenderer::RectRenderer(JsonIcon* icon) :JsonRenderer(), m_icon(icon), m_length(0)
 {}
 
-void RectRenderer::renderLeaf(JsonLeaf* leaf, int level)
+void RectRenderer::render(JsonLeaf* leaf, int level)
 {
     size_t ll = level * 3 + 3;
 
@@ -26,7 +27,7 @@ void RectRenderer::renderLeaf(JsonLeaf* leaf, int level)
     m_length = m_length > ll ? m_length : ll;
 }
 
-void RectRenderer::renderContainer(JsonContainer* container, int level)
+void RectRenderer::render(JsonContainer* container, int level)
 {
     size_t ll = level * 3 + 3;
 
@@ -44,6 +45,7 @@ void RectRenderer::renderContainer(JsonContainer* container, int level)
     }
 
     int child_num = container->size();
+    
     for (int i = 0;i < child_num;i++)
     {
 
@@ -78,7 +80,7 @@ void RectRenderer::renderContainer(JsonContainer* container, int level)
 
         if (!m_outputBuffer.empty()) m_outputBuffer.back() += getPrefix();
         else m_outputBuffer.push_back(getPrefix());
-        container->at(i).draw(this, level + 1);
+        container->at(i)->draw(this, level + 1);
     }
     if (level == 0)
     {

@@ -5,7 +5,7 @@
 OriginRenderer::OriginRenderer() :JsonRenderer()
 {}
 
-void OriginRenderer::renderLeaf(JsonLeaf* leaf, int level)
+void OriginRenderer::render(JsonLeaf* leaf, int level)
 {
     std::string spaces(level * 4, ' ');
     m_outputBuffer.back() += (spaces + '\"' + leaf->getName() + "\": ");
@@ -19,7 +19,7 @@ void OriginRenderer::renderLeaf(JsonLeaf* leaf, int level)
     }
 }
 
-void OriginRenderer::renderContainer(JsonContainer* container, int level)
+void OriginRenderer::render(JsonContainer* container, int level)
 {
     std::string spaces(level * 4, ' ');
     if (container->getName() != "")
@@ -31,7 +31,7 @@ void OriginRenderer::renderContainer(JsonContainer* container, int level)
     m_outputBuffer.push_back("");
     for (int i = 0;i < container->size();i++)
     {
-        container->at(i).draw(this, level + 1);
+        container->at(i)->draw(this, level + 1);
         if (i != container->size() - 1) m_outputBuffer.back() += ',';
         m_outputBuffer.push_back("");
     }

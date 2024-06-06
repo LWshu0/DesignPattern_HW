@@ -44,7 +44,7 @@ std::string JsonLoader::draw(RendererFactory* factory)
 {
     if (factory == nullptr || m_root == nullptr) return "";
     JsonRenderer* renderer = factory->create();
-    renderer->renderContainer(m_root.get(), 0);
+    renderer->render(m_root.get(), 0);
     std::string result = renderer->getResult();
     delete renderer;
     return result;

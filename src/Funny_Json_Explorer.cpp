@@ -41,25 +41,4 @@ int main()
     // 短文件测试
     result = loader.draw(&origin_factory);
     std::cout << result << std::endl;
-
-    std::cout << " 访问/修改/导出方式测试 " << std::endl;
-    loader.load("test.json");
-    // should be "cheap & juicy!"
-    std::cout << "修改前: " << loader.root()["oranges"]["mandarin"]["tangerine"].getValue() << std::endl;
-    // 修改
-    loader.root()["oranges"]["mandarin"]["tangerine"].setValue("new cheap & juicy");
-
-    loader.root()["apples"]["gala"].setValue("10.0");
-    std::cout << "获取浮点值(10.0): " << loader.root()["apples"]["gala"].getFloat() << std::endl;
-
-    loader.root()["apples"]["gala"].setValue("99");
-    std::cout << "获取整数值(99): " << loader.root()["apples"]["gala"].getInt() << std::endl;
-
-    loader.root()["apples"]["gala"].setValue("False");
-    std::cout << "获取布尔值(True): " << (loader.root()["apples"]["gala"].getBool() ? "True" : "False") << std::endl;
-
-    // 修改后
-    std::cout << "修改后: " << loader.root()["oranges"]["mandarin"]["tangerine"].getValue() << std::endl;
-    // 导出
-    loader.output("test_after_change.json");
 }

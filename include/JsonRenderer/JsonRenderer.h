@@ -18,8 +18,8 @@ protected:
     std::vector<std::string> m_outputBuffer;
 public:
     JsonRenderer() = default;
-    virtual void renderLeaf(JsonLeaf* leaf, int level) = 0;
-    virtual void renderContainer(JsonContainer* container, int level) = 0;
+    virtual void render(JsonLeaf* leaf, int level) = 0;
+    virtual void render(JsonContainer* container, int level) = 0;
     std::string getResult()
     {
         std::string result = "";

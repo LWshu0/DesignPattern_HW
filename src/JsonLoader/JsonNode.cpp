@@ -1,6 +1,7 @@
 #include "JsonLoader/JsonNode.h"
 #include "JsonIcon/JsonIcon.h"
 #include "JsonRenderer/JsonRenderer.h"
+#include "JsonLoader/JsonIterator.h"
 
 JsonContainer::JsonContainer(int level) :JsonNode(), m_level(level)
 {
@@ -15,30 +16,24 @@ bool JsonContainer::empty()
 {
     return m_children.empty();
 }
-JsonNode& JsonContainer::at(size_t idx)
+JsonNode* JsonContainer::at(size_t idx)
 {
-    return *m_children[idx];
+    if (idx < 0 || idx >= size()) return nullptr;
+    return m_children[idx].get();
 }
-JsonNode& JsonContainer::at(const std::string& name)
+JsonNode* JsonContainer::at(const std::string& name)
 {
     for (auto& child : m_children)
     {
         if (child->getName() == name)
         {
-            return *child;
+            return child.get();
         }
     }
     std::string msg = "JsonContainer::at(const std::string& name) -- name: \"" + name + "\" doesn't exist\n";
     throw std::out_of_range(msg.c_str());
 }
-JsonNode& JsonContainer::operator[](size_t idx)
-{
-    return this->at(idx);
-}
-JsonNode& JsonContainer::operator[](const std::string& name)
-{
-    return this->at(name);
-}
+
 void JsonContainer::setValue(const std::string& value)
 {
     return;
@@ -60,6 +55,11 @@ bool JsonContainer::getBool()
     return false;
 }
 
+std::shared_ptr<JsonIterator> JsonContainer::begin()
+{
+    return std::make_shared<JsonContainerIterator>(this, 0);
+}
+
 void JsonContainer::addChild(std::shared_ptr<JsonNode> node)
 {
     m_children.push_back(node);
@@ -76,7 +76,7 @@ void JsonContainer::clear()
 
 void JsonContainer::draw(JsonRenderer* renderer, int level)
 {
-    renderer->renderContainer(this, level);
+    renderer->render(this, level);
 }
 
 JsonContainer::~JsonContainer()
@@ -97,22 +97,15 @@ bool JsonLeaf::empty()
 {
     return m_value == "";
 }
-JsonNode& JsonLeaf::at(size_t idx)
+JsonNode* JsonLeaf::at(size_t idx)
 {
-    return *this;
+    return this;
 }
-JsonNode& JsonLeaf::at(const std::string& name)
+JsonNode* JsonLeaf::at(const std::string& name)
 {
-    return *this;
+    return this;
 }
-JsonNode& JsonLeaf::operator[](size_t idx)
-{
-    return this->at(idx);
-}
-JsonNode& JsonLeaf::operator[](const std::string& name)
-{
-    return this->at(name);
-}
+
 void JsonLeaf::setValue(const std::string& value)
 {
     m_value = value;
@@ -140,10 +133,14 @@ bool JsonLeaf::getBool()
         throw std::invalid_argument("JsonLeaf::getBool() -- invalid argument, must be \"true\" ot \"false\"\n");
     }
 }
+std::shared_ptr<JsonIterator> JsonLeaf::begin()
+{
+    return std::make_shared<JsonLeafIterator>(this, 0);
+}
 
 void JsonLeaf::draw(JsonRenderer* renderer, int level)
 {
-    renderer->renderLeaf(this, level);
+    renderer->render(this, level);
 }
 void JsonLeaf::clear()
 {

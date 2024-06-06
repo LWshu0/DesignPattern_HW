@@ -6,8 +6,8 @@
 class OriginRenderer :public JsonRenderer {
 public:
     OriginRenderer();
-    virtual void renderLeaf(JsonLeaf* leaf, int level) override;
-    virtual void renderContainer(JsonContainer* container, int level) override;
+    virtual void render(JsonLeaf* leaf, int level) override;
+    virtual void render(JsonContainer* container, int level) override;
     virtual ~OriginRenderer();
 };
 
