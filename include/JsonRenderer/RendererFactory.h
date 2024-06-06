@@ -15,10 +15,14 @@ public:
             m_icon = new JsonIcon(icon_file);
         }
     }
+    void setIcon(JsonIcon* icon)
+    {
+        m_icon = icon;
+    }
     virtual JsonRenderer* create() = 0;
     virtual ~RendererFactory()
     {
-        if (m_icon != nullptr) delete m_icon;
+        // if (m_icon != nullptr) delete m_icon;
     };
 };
 

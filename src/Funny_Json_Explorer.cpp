@@ -1,65 +1,54 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 
 #include "JsonIcon/JsonIcon.h"
 #include "JsonRenderer/TreeRendererFactory.h"
 #include "JsonRenderer/RectRendererFactory.h"
 #include "JsonRenderer/OriginRendererFactory.h"
 #include "JsonLoader/JsonLoader.h"
+#include "JsonLoader/FJE.h"
 
-int main()
+int main(int argc, char** argv)
 {
-    JsonLoader loader;
-    loader.load("test.json");
-
-    TreeRendererFactory tree_factory_noicon;
-    RectRendererFactory rect_factory_noicon;
-    TreeRendererFactory tree_factory("icon.config");
-    RectRendererFactory rect_factory("icon_ext.config");
-    OriginRendererFactory origin_factory;
-
-    // 风格 1
-    std::string result = loader.draw(&tree_factory_noicon);
-    std::cout << result << std::endl;
-    // 风格 2
-    result = loader.draw(&rect_factory_noicon);
-    std::cout << result << std::endl;
-    // 图标 1
-    result = loader.draw(&tree_factory);
-    std::cout << result << std::endl;
-    // 图标 2
-    result = loader.draw(&rect_factory);
-    std::cout << result << std::endl;
-
-    loader.load("test2.json");
-    // 短文件测试
-    result = loader.draw(&tree_factory);
-    std::cout << result << std::endl;
-    // 短文件测试
-    result = loader.draw(&rect_factory);
-    std::cout << result << std::endl;
-    // 短文件测试
-    result = loader.draw(&origin_factory);
-    std::cout << result << std::endl;
-
-    std::cout << " 访问/修改/导出方式测试 " << std::endl;
-    loader.load("test.json");
-    // should be "cheap & juicy!"
-    std::cout << "修改前: " << loader.root()["oranges"]["mandarin"]["tangerine"].getValue() << std::endl;
-    // 修改
-    loader.root()["oranges"]["mandarin"]["tangerine"].setValue("new cheap & juicy");
-
-    loader.root()["apples"]["gala"].setValue("10.0");
-    std::cout << "获取浮点值(10.0): " << loader.root()["apples"]["gala"].getFloat() << std::endl;
-
-    loader.root()["apples"]["gala"].setValue("99");
-    std::cout << "获取整数值(99): " << loader.root()["apples"]["gala"].getInt() << std::endl;
-
-    loader.root()["apples"]["gala"].setValue("False");
-    std::cout << "获取布尔值(True): " << (loader.root()["apples"]["gala"].getBool() ? "True" : "False") << std::endl;
-
-    // 修改后
-    std::cout << "修改后: " << loader.root()["oranges"]["mandarin"]["tangerine"].getValue() << std::endl;
-    // 导出
-    loader.output("test_after_change.json");
+    std::string json_path;
+    std::string style;
+    std::string icon_path;
+    for (int i = 1;i < argc;i += 2)
+    {
+        if (0 == strcmp(argv[i], "-f"))
+        {
+            json_path = argv[i + 1];
+        }
+        else if (0 == strcmp(argv[i], "-s"))
+        {
+            style = argv[i + 1];
+        }
+        else if (0 == strcmp(argv[i], "-i"))
+        {
+            icon_path = argv[i + 1];
+        }
+    }
+    FJE fje;
+    fje.buildIcon(icon_path);
+    if (style == "tree")
+    {
+        fje.buildRender(new TreeRendererFactory);
+    }
+    else if (style == "rect")
+    {
+        fje.buildRender(new RectRendererFactory);
+    }
+    else if (style == "origin")
+    {
+        fje.buildRender(new OriginRendererFactory);
+    }
+    else
+    {
+        std::cout << "未知风格" << std::endl;
+        return -1;
+    }
+    fje.buildLoader(json_path);
+    fje.renderJson();
+    return 0;
 }
